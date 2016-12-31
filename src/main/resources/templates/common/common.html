@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-style-type"  content="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" media="screen,print" />
+</head>
+<body>
+<div th:fragment="header">
+    <div class="header">
+        <!-- 
+          <div class="header__menu header__menu - logo">
+              サイクル！
+          </div>
+         -->
+        <div class="header__menu">
+            <a href="" th:href="@{/}" class="header__link">
+                <span>ホーム</span>
+              </a>
+        </div>
+        <div class="header__menu">
+            <a href="" th:href="@{/task/add}" class="header__link">
+                <span>タスク登録</span>
+              </a>
+          </div>
+          <div class="header__menu">
+              <form action="" th:action="@{/logout}" method="post" class="header__form">
+                    <input type="submit" value="ログアウト" />
+              </form>
+          </div>
+    </div>
+</div>
+<div th:fragment="taskForm">
+    <div class="body__column">
+        <div class="body__label">タイトル</div>
+        <input type="text" th:field="*{title}" />
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error</div>
+    </div>
+    <div class="body__column">
+        <div class="body__label">内容</div>
+        <textarea th:field="*{description}"></textarea>
+    </div>
+    <div class="body__column">
+        <div class="body__label">実施間隔</div>
+        <input type="text" th:field="*{settingInterval}" />日ごと
+    </div>
+    <div class="body__column">
+        <div class="body__label">次回実施予定</div>
+        <input type="text" th:field="*{nextLimitDate}" />
+        <div class="body__guide">
+            入力例: 2017-01-15
+        </div>
+    </div>
+    <!-- 
+    <div class="body__column">
+        <div class="body__label">通知を行うか</div>
+        <label>
+          <input type="radio" th:field="*{doNotify}" value="on" />
+          <span>通知する</span>
+        </label>
+    </div>
+     -->
+    
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/common :: head">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div th:include="common/common :: header"></div>
+    <div class="body">
+        <div class="body__title" th:text="${task.title}"></div>
+        <div class="body__function">
+          <a href="" th:href="@{'/task/' + ${task.id} + '/recordAdd'}" class="body__function__menu">
+              <span>実施履歴登録</span>
+          </a>
+          <a href="" th:href="@{'/task/'+ ${task.id} + '/modify'}" class="body__function__menu">
+                <span>タスク変更</span>
+          </a>
+        </div>
+        <table class="detail" th:object="${task}">
+            <tbody>
+                <tr>
+                    <th><div>タイトル</div></th>
+                    <td>
+                        <div th:text="*{title}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><div>内容</div></th>
+                    <td>
+                        <div th:text="*{description}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><div>実施間隔</div></th>
+                    <td>
+                        <div>
+                            <span th:text="*{settingInterval}"></span>日ごと
+                          </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><div>次回予定</div></th>
+                    <td>
+                        <div>
+                          <span th:text="*{nextLimitDate == null} ? '未設定' : *{#dates.format( nextLimitDate, 'yyyy/MM/dd' )}"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><div>実施回数</div></th>
+                    <td>
+                        <div>
+                            <span th:text="*{executedCount == 0} ? '未実施' : *{executedCount} + '回目'"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><div>平均間隔</div></th>
+                    <td>
+                        <div>
+                            <span th:text="*{averageInterval != null } ? *{averageInterval} + '日ごと' : '' "></span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="list" th:if="${taskRecordList.size() > 0}">
+            <thead>
+                <tr>
+                    <th>実施した日</th>
+                    <th>前回から日数</th>
+                    <th>メモ</th>
+                  </tr>
+            </thead>
+            <tbody th:each="taskRecord : ${taskRecordList}">
+                <tr>
+                    <td>
+                        <div th:text="${#dates.format( taskRecord.executedDate, 'yyyy/MM/dd' )}"></div>
+                      </td>
+                    <td>
+                        <div>
+                            <div th:if="${taskRecordStat.count} > 1">
+                                <span th:text="${taskRecord.intervalDay}"></span>日後
+                              </div>
+                        </div>
+                    </td>
+                    <td class="list__memo">
+                        <div th:text="${taskRecord.memo}"></div>
+                      </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/common :: head">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div th:include="common/common :: header"></div>
+    <div class="body">
+      <div class="body__title">タスク変更</div>
+      <form action="" th:action="@{'/task/' + ${taskId} + '/modify'}" method="post" th:object="${taskForm}">
+          <div class="body__operation">
+              <div th:include="common/common :: taskForm"></div>
+              <input type="hidden" th:field="*{taskId}" />
+              <input type="submit" value="変更" />
+          </div>
+      </form>
+    </div>
+</body>
+</html>

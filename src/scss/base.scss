@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+@import "compass";
+@import "compass/reset";
+
+$borderColor: #AAAAAA;
+$linkColor: #4455BB;
+
+body{
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",  "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    font-size: 14px;
+    max-width: 600px;
+}
+
+a {
+    font-size: 0;
+    text-decoration: none;
+    span {
+        font-size: 14px;
+        color: $linkColor;
+    }
+    &:hover {
+        text-decoration: none;
+        span {
+            text-decoration: underline;
+        }
+    }
+    &:active {
+        span {
+            color: $linkColor;
+        }
+    }
+}
+
+input {
+    &[type=text], &[type=password] {
+        padding: 8px 12px;
+        margin: 0 4px 4px;
+        border: 1px solid $borderColor;
+        @include border-radius( 4px );
+    }
+}
+
+textarea {
+    padding: 8px 12px;
+    margin: 0 4px 4px;
+    border: 1px solid $borderColor;
+    @include border-radius( 4px );
+}

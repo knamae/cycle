@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/common :: head">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div th:include="common/common :: header"></div>
+    <div class="body">
+        <div class="body__title">実施履歴登録</div>
+        <form action="" th:action="@{'/task/' + ${task.id} + '/recordAdd'}" method="post" th:object="${taskRecordForm}">
+            <div class="body__column">
+                <div class="body__label">タイトル</div>
+                <div>
+                    <span th:text="${task.title}"></span>
+                </div>
+              </div>
+            <div class="body__column">
+                <div class="body__label">メモ</div>
+                <input type="text" th:field="*{memo}" />
+                <div th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}">error</div>
+            </div>
+            <div class="body__column">
+                <div class="body__label">実施日</div>
+                <input type="text" th:field="*{executedDate}" />
+                <div th:if="${#fields.hasErrors('executedDate')}" th:errors="*{executedDate}">error</div>
+                <div class="body__guide">
+                    入力例: 2017-01-15
+                </div>
+            </div>
+            <div class="body__operation">
+                <input type="submit" value="登録" />
+            </div>
+            <input type="hidden" th:field="*{taskId}" th:value="${taskRecordForm.taskId}" />
+        </form>
+    </div>
+</body>
+</html>

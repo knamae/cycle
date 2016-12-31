@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/common :: head">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div th:include="common/common :: header"></div>
+    <div class="body">
+        <div class="body__title">タスク一覧</div>
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th>タイトル</th>
+                        <th>実施間隔</th>
+                        <th>次回予定</th>
+                        <th>実施回数</th>
+                        <th>状態</th>
+                    </tr>
+                </thead>
+                <tbody th:each="task : ${taskList}" th:object="${task}">
+                    <tr>
+                        <td class="list__title">
+                            <a href="" th:href="@{/task/{taskId}(taskId=*{id})}">
+                                <span th:text="*{title}"></span>
+                              </a>
+                        </td>
+                        <td class="list__interval">
+                            <span th:text="*{settingInterval} + '日ごと'"></span>
+                        </td>
+                        <td class="list__limitDate">
+                            <span th:text="*{nextLimitDate == null} ? '未設定' : *{#dates.format( nextLimitDate, 'yyyy/MM/dd' )}"></span>
+                        </td>
+                        <td class="list__executedCount">
+                            <span th:text="*{executedCount == 0} ? '未実施' : *{executedCount} + '回目'"></span>
+                        </td>
+                        <td class="list__status">
+                            <span th:switch="*{status.toString()}">
+                                <span th:case="ENABLED">有効</span>
+                                <span th:case="DISABLED">無効</span>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</body>
+</html>
