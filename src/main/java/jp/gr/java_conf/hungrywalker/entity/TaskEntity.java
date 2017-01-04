@@ -7,6 +7,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -49,6 +50,19 @@ public class TaskEntity extends BaseEntity
 
     /** 通知状態 */
     private Integer notifyStatus;
+
+    @Transient
+    private String taskId;
+
+    public void setTaskId(String taskId)
+    {
+        this.taskId = taskId;
+    }
+
+    public String getTaskId()
+    {
+        return this.taskId;
+    }
 
     public String getTitle()
     {

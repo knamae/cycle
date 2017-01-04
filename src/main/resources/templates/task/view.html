@@ -8,10 +8,10 @@
     <div class="body">
         <div class="body__title" th:text="${task.title}"></div>
         <div class="body__function">
-          <a href="" th:href="@{'/task/' + ${task.id} + '/recordAdd'}" class="body__function__menu">
+          <a href="" th:href="@{'/task/' + ${task.taskId} + '/recordAdd'}" class="body__function__menu">
               <span>実施履歴登録</span>
           </a>
-          <a href="" th:href="@{'/task/'+ ${task.id} + '/modify'}" class="body__function__menu">
+          <a href="" th:href="@{'/task/'+ ${task.taskId} + '/modify'}" class="body__function__menu">
                 <span>タスク変更</span>
           </a>
         </div>
@@ -68,7 +68,7 @@
             <thead>
                 <tr>
                     <th>実施した日</th>
-                    <th>前回から日数</th>
+                    <th>前回からの日数</th>
                     <th>メモ</th>
                   </tr>
             </thead>

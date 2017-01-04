@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import jp.gr.java_conf.hungrywalker.entity.TaskEntity;
@@ -38,9 +39,10 @@ public class TaskServiceImpl implements TaskService
     }
 
     @Override
-    public List<TaskEntity> getList(Long memberId)
+    public List<TaskEntity> getListOrderByLimitDateAsc(Long memberId)
     {
-        return this.taskRepository.findByMemberId(memberId);
+        return this.taskRepository.findByMemberId(memberId,
+                new Sort(Sort.Direction.ASC, "nextLimitDate"));
     }
 
     @Override

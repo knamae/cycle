@@ -11,7 +11,7 @@ public interface TaskService
 
     TaskEntity get(Long taskId);
 
-    List<TaskEntity> getList(Long memberId);
+    List<TaskEntity> getListOrderByLimitDateAsc(Long memberId);
 
     void addRecord(TaskRecordEntity taskRecordEntity);
 

@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.gr.java_conf.hungrywalker.dxo.TaskRecordDxo;
 import jp.gr.java_conf.hungrywalker.entity.TaskEntity;
 import jp.gr.java_conf.hungrywalker.entity.TaskRecordEntity;
 import jp.gr.java_conf.hungrywalker.helper.CalendarHelper;
+import jp.gr.java_conf.hungrywalker.helper.CipherHelper;
 import jp.gr.java_conf.hungrywalker.service.TaskService;
 import jp.gr.java_conf.hungrywalker.web.task.ViewController;
 
@@ -32,17 +34,23 @@ public class RecordAddController
     @Autowired
     CalendarHelper calendarHelper;
 
+    @Autowired
+    CipherHelper cipherHelper;
+
     @ModelAttribute
     public TaskRecordForm setupForm()
     {
         return new TaskRecordForm();
     }
 
-    @GetMapping("/task/{taskId}/recordAdd")
-    public String get(@PathVariable("taskId") Long taskId, Model model,
+    @GetMapping(RecordAddController.PAGE)
+    public String get(@PathVariable("taskId") String taskId, Model model,
             TaskRecordForm taskRecordForm)
     {
-        TaskEntity taskEntity = this.taskService.get(taskId);
+        String _taskId = this.cipherHelper.decypt(taskId);
+        Long id = Long.valueOf(_taskId);
+
+        TaskEntity taskEntity = this.taskService.get(id);
         model.addAttribute("task", taskEntity);
 
         taskRecordForm
@@ -51,9 +59,9 @@ public class RecordAddController
         return RecordAddController.HTML;
     }
 
-    @PostMapping(value = PAGE)
-    public String post(@PathVariable("taskId") Long taskId,
-            @Validated TaskRecordForm taskRecordForm, BindingResult result, Model model)
+    @PostMapping(RecordAddController.PAGE)
+    public String post(@Validated TaskRecordForm taskRecordForm, BindingResult result, Model model,
+            RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
@@ -63,6 +71,7 @@ public class RecordAddController
         TaskRecordEntity taskRecordEntity = this.taskRecordDxo.convertFormToEntity(taskRecordForm);
         this.taskService.addRecord(taskRecordEntity);
 
+        attributes.addAttribute("taskId", taskRecordForm.getTaskId());
         return "redirect:" + ViewController.PAGE;
     }
 }

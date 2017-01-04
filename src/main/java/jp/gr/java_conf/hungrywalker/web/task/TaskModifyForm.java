@@ -2,14 +2,14 @@ package jp.gr.java_conf.hungrywalker.web.task;
 
 public class TaskModifyForm extends AbstractTaskForm
 {
-    private Long taskId;
+    private String taskId;
 
-    public Long getTaskId()
+    public String getTaskId()
     {
-        return taskId;
+        return this.taskId;
     }
 
-    public void setTaskId(Long taskId)
+    public void setTaskId(String taskId)
     {
         this.taskId = taskId;
     }

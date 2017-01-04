@@ -14,13 +14,13 @@
                         <th>実施間隔</th>
                         <th>次回予定</th>
                         <th>実施回数</th>
-                        <th>状態</th>
+                        <!-- <th>状態</th> -->
                     </tr>
                 </thead>
                 <tbody th:each="task : ${taskList}" th:object="${task}">
                     <tr>
                         <td class="list__title">
-                            <a href="" th:href="@{/task/{taskId}(taskId=*{id})}">
+                            <a href="" th:href="@{/task/{taskId}(taskId=*{taskId})}">
                                 <span th:text="*{title}"></span>
                               </a>
                         </td>
@@ -33,12 +33,14 @@
                         <td class="list__executedCount">
                             <span th:text="*{executedCount == 0} ? '未実施' : *{executedCount} + '回目'"></span>
                         </td>
+                        <!-- 
                         <td class="list__status">
                             <span th:switch="*{status.toString()}">
                                 <span th:case="ENABLED">有効</span>
                                 <span th:case="DISABLED">無効</span>
                             </span>
                         </td>
+                         -->
                     </tr>
                 </tbody>
             </table>

@@ -2,18 +2,18 @@ package jp.gr.java_conf.hungrywalker.web.task.record;
 
 public class TaskRecordForm
 {
-    private Long taskId;
+    private String taskId;
 
     private String memo;
 
     private String executedDate;
 
-    public Long getTaskId()
+    public String getTaskId()
     {
         return this.taskId;
     }
 
-    public void setTaskId(Long taskId)
+    public void setTaskId(String taskId)
     {
         this.taskId = taskId;
     }

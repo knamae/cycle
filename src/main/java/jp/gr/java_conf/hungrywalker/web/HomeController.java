@@ -28,7 +28,7 @@ public class HomeController
         Authentication authentication = (Authentication) principal;
         MemberEntity memberEntity = (MemberEntity) authentication.getPrincipal();
 
-        List<TaskEntity> taskList = this.taskService.getList(memberEntity.getId());
+        List<TaskEntity> taskList = this.taskService.getListOrderByLimitDateAsc(memberEntity.getId());
         model.addAttribute("taskList", taskList);
 
         return HomeController.HTML;

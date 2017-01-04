@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.gr.java_conf.hungrywalker.dxo.TaskDxo;
 import jp.gr.java_conf.hungrywalker.entity.TaskEntity;
+import jp.gr.java_conf.hungrywalker.helper.CipherHelper;
 import jp.gr.java_conf.hungrywalker.service.TaskService;
 
 @Controller
@@ -26,20 +27,26 @@ public class ModifyController
     @Autowired
     TaskDxo taskDxo;
 
+    @Autowired
+    CipherHelper cipherHelper;
+
     @ModelAttribute
     public TaskModifyForm setupForm()
     {
         return new TaskModifyForm();
     }
 
-    @GetMapping("/task/{taskId}/modify")
-    public String get(@PathVariable Long taskId, Model model)
+    @GetMapping(ModifyController.PAGE)
+    public String get(@PathVariable String taskId, Model model)
     {
-        TaskEntity taskEntity = this.taskService.get(taskId);
+        String _taskId = this.cipherHelper.decypt(taskId);
+        Long id = Long.valueOf(_taskId);
+
+        TaskEntity taskEntity = this.taskService.get(id);
 
         TaskModifyForm taskForm = setupForm();
         this.taskDxo.convertEntityToForm(taskEntity, taskForm);
-        taskForm.setTaskId(taskEntity.getId());
+        taskForm.setTaskId(taskEntity.getTaskId());
         model.addAttribute("taskForm", taskForm);
 
         return ModifyController.HTML;
@@ -53,7 +60,10 @@ public class ModifyController
             return ModifyController.HTML;
         }
 
-        TaskEntity taskEntity = this.taskService.get(taskForm.getTaskId());
+        String taskId = this.cipherHelper.decypt(taskForm.getTaskId());
+        Long id = Long.valueOf(taskId);
+
+        TaskEntity taskEntity = this.taskService.get(id);
         this.taskDxo.convertFormToEntity(taskForm, taskEntity);
         this.taskService.add(taskEntity);
 

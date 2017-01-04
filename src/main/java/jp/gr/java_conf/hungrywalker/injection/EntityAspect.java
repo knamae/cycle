@@ -21,7 +21,7 @@ public class EntityAspect
 {
     /**
      * エンティティ生成時にログインメンバーidを設定
-     * 
+     *
      * @param joinPoint
      * @param returnValue
      */

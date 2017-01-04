@@ -7,12 +7,15 @@ import java.util.Objects;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import jp.gr.java_conf.hungrywalker.entity.BaseEntity;
 import jp.gr.java_conf.hungrywalker.entity.MemberEntity;
+import jp.gr.java_conf.hungrywalker.entity.TaskEntity;
+import jp.gr.java_conf.hungrywalker.helper.CipherHelper;
 
 /**
  * サービス層関連のAspect
@@ -23,6 +26,9 @@ import jp.gr.java_conf.hungrywalker.entity.MemberEntity;
 @Component
 public class ServiceAspect
 {
+    @Autowired
+    CipherHelper cipherHelper;
+
     /**
      * 取得可能な情報かを確認
      *
@@ -65,6 +71,31 @@ public class ServiceAspect
                 {
                     returnValue = null;
                 }
+            }
+        }
+    }
+
+    @AfterReturning(pointcut = "execution( * jp.gr.java_conf.hungrywalker.service.TaskService.get*(..))", returning = "returnValue")
+    public void setTaskId(JoinPoint joinPoint, Object returnValue)
+    {
+        if (returnValue instanceof List<?>)
+        {
+            List<?> list = (List<?>) returnValue;
+            for (Iterator<?> iterator = list.iterator(); iterator.hasNext();)
+            {
+                Object object = iterator.next();
+                if (object instanceof TaskEntity)
+                {
+                    TaskEntity task = (TaskEntity) object;
+                    task.setTaskId(this.cipherHelper.encrypt(String.valueOf(task.getId())));
+                }
+            }
+        } else
+        {
+            if (returnValue instanceof TaskEntity)
+            {
+                TaskEntity task = (TaskEntity) returnValue;
+                task.setTaskId(this.cipherHelper.encrypt(String.valueOf(task.getId())));
             }
         }
     }

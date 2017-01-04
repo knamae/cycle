@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import jp.gr.java_conf.hungrywalker.entity.TaskEntity;
 import jp.gr.java_conf.hungrywalker.entity.TaskRecordEntity;
+import jp.gr.java_conf.hungrywalker.helper.CipherHelper;
 import jp.gr.java_conf.hungrywalker.service.TaskService;
 
 @Controller
@@ -21,13 +22,19 @@ public class ViewController
     @Autowired
     TaskService taskService;
 
-    @GetMapping("/task/{taskId}")
-    public String get(@PathVariable Long taskId, Model model)
+    @Autowired
+    CipherHelper cipherHelper;
+
+    @GetMapping(ViewController.PAGE)
+    public String get(@PathVariable String taskId, Model model)
     {
-        TaskEntity taskEntity = this.taskService.get(taskId);
+        String _taskId = this.cipherHelper.decypt(taskId);
+        Long id = Long.valueOf(_taskId);
+
+        TaskEntity taskEntity = this.taskService.get(id);
         model.addAttribute("task", taskEntity);
 
-        List<TaskRecordEntity> taskRecordEntityList = this.taskService.getRecordList(taskId);
+        List<TaskRecordEntity> taskRecordEntityList = this.taskService.getRecordList(id);
         model.addAttribute("taskRecordList", taskRecordEntityList);
 
         return ViewController.HTML;
