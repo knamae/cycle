@@ -33,8 +33,9 @@ public class OAuthAuthorizationServerConfig extends AuthorizationServerConfigure
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception
     {
-        clients.inMemory().withClient("oauth_client").resourceIds(OAuthResourceConfig.RESOURCE_ID)
-                .scopes("read").authorizedGrantTypes("authorization_code")
-                .redirectUris("http://localhost:8080").secret("oauth_client_secret");
+        clients.inMemory().withClient("oauth_client").authorities("USER")
+                .resourceIds(WebSecurityConfig.OAuthResourceConfig.RESOURCE_ID).scopes("read")
+                .authorizedGrantTypes("authorization_code").redirectUris("http://localhost:8080")
+                .secret("oauth_client_secret");
     }
 }
