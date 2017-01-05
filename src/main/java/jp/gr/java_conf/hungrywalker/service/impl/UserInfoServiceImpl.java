@@ -14,7 +14,7 @@ import jp.gr.java_conf.hungrywalker.repository.MemberRepository;
 public class UserInfoServiceImpl implements UserDetailsService
 {
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String mailAddress) throws UsernameNotFoundException

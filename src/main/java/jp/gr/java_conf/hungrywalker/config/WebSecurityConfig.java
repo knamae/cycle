@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import jp.gr.java_conf.hungrywalker.web.LoginController;
+
 @Configuration
 @Order(1)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
@@ -25,14 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception
     {
-        httpSecurity.authorizeRequests().antMatchers("/**").authenticated().and().httpBasic()
-                .realmName("OAuth Server");
+        httpSecurity.formLogin().loginPage(LoginController.PAGE).usernameParameter("mailAddress")
+                .passwordParameter("password").permitAll();
+        httpSecurity.logout().permitAll();
 
-        // httpSecurity.formLogin().loginPage(LoginController.PAGE).usernameParameter("mailAddress")
-        // .passwordParameter("password").permitAll();
-        // httpSecurity.logout().permitAll();
-        //
-        // httpSecurity.authorizeRequests().anyRequest().authenticated();
+        httpSecurity.authorizeRequests().anyRequest().authenticated();
     }
 
     @Override

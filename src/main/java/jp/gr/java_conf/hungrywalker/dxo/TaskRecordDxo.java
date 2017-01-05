@@ -13,10 +13,10 @@ import jp.gr.java_conf.hungrywalker.web.task.record.TaskRecordForm;
 public class TaskRecordDxo
 {
     @Autowired
-    CalendarHelper calendarHelper;
+    private CalendarHelper calendarHelper;
 
     @Autowired
-    CipherHelper cipherHelper;
+    private CipherHelper cipherHelper;
 
     public TaskRecordEntity convertFormToEntity(TaskRecordForm taskRecordForm)
     {

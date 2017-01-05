@@ -22,13 +22,13 @@ public class ModifyController
     private static final String HTML = "task/modify";
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
 
     @Autowired
-    TaskDxo taskDxo;
+    private TaskDxo taskDxo;
 
     @Autowired
-    CipherHelper cipherHelper;
+    private CipherHelper cipherHelper;
 
     @ModelAttribute
     public TaskModifyForm setupForm()

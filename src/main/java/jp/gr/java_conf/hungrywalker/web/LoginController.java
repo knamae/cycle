@@ -9,7 +9,7 @@ public class LoginController
     public static final String PAGE = "/login";
     private static final String HTML = "login";
 
-    @GetMapping(path = LoginController.PAGE)
+    @GetMapping(LoginController.PAGE)
     public String get()
     {
         return LoginController.HTML;

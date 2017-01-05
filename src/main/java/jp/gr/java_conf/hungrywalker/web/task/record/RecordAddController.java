@@ -26,16 +26,16 @@ public class RecordAddController
     private static final String HTML = "task/record/add";
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
 
     @Autowired
-    TaskRecordDxo taskRecordDxo;
+    private TaskRecordDxo taskRecordDxo;
 
     @Autowired
-    CalendarHelper calendarHelper;
+    private CalendarHelper calendarHelper;
 
     @Autowired
-    CipherHelper cipherHelper;
+    private CipherHelper cipherHelper;
 
     @ModelAttribute
     public TaskRecordForm setupForm()

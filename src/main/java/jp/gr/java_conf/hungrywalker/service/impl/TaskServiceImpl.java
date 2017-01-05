@@ -18,13 +18,13 @@ import jp.gr.java_conf.hungrywalker.service.TaskService;
 public class TaskServiceImpl implements TaskService
 {
     @Autowired
-    TaskRepository taskRepository;
+    private TaskRepository taskRepository;
 
     @Autowired
-    TaskRecordRepository taskRecordRepository;
+    private TaskRecordRepository taskRecordRepository;
 
     @Autowired
-    CalendarHelper calendarHelper;
+    private CalendarHelper calendarHelper;
 
     @Override
     public void add(TaskEntity taskEntity)

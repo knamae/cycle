@@ -20,15 +20,16 @@ public class HomeController
     private static final String HTML = "home";
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
 
-    @GetMapping(path = PAGE)
+    @GetMapping(PAGE)
     public String home(Model model, Principal principal)
     {
         Authentication authentication = (Authentication) principal;
         MemberEntity memberEntity = (MemberEntity) authentication.getPrincipal();
 
-        List<TaskEntity> taskList = this.taskService.getListOrderByLimitDateAsc(memberEntity.getId());
+        List<TaskEntity> taskList = this.taskService
+                .getListOrderByLimitDateAsc(memberEntity.getId());
         model.addAttribute("taskList", taskList);
 
         return HomeController.HTML;

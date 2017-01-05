@@ -27,7 +27,7 @@ import jp.gr.java_conf.hungrywalker.helper.CipherHelper;
 public class ServiceAspect
 {
     @Autowired
-    CipherHelper cipherHelper;
+    private CipherHelper cipherHelper;
 
     /**
      * 取得可能な情報かを確認

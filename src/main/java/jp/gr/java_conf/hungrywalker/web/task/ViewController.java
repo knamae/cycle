@@ -20,10 +20,10 @@ public class ViewController
     private static final String HTML = "task/view";
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
 
     @Autowired
-    CipherHelper cipherHelper;
+    private CipherHelper cipherHelper;
 
     @GetMapping(ViewController.PAGE)
     public String get(@PathVariable String taskId, Model model)

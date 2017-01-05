@@ -21,10 +21,10 @@ public class AddController
     private static final String HTML = "task/add";
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
 
     @Autowired
-    TaskDxo taskDxo;
+    private TaskDxo taskDxo;
 
     @ModelAttribute
     public TaskAddForm setupForm()

@@ -16,7 +16,7 @@ import jp.gr.java_conf.hungrywalker.web.task.AbstractTaskForm;
 public class TaskDxo
 {
     @Autowired
-    CalendarHelper calendarHelper;
+    private CalendarHelper calendarHelper;
 
     /**
      * フォーム情報からエンティティを作成
